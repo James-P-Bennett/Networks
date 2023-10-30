@@ -4,8 +4,8 @@ import io.github.sefiraat.networks.utils.StackUtils;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.implementation.items.backpacks.SlimefunBackpack;
 import lombok.experimental.UtilityClass;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -54,7 +54,11 @@ public final class SupportedRecipes {
     }
 
     public static boolean allowedRecipe(@Nonnull SlimefunItem item) {
-        return !(item instanceof SlimefunBackpack);
+        for (ItemStack itemStack : item.getRecipe()) {
+            if (itemStack != null && itemStack.getType() == Material.HOPPER) {
+                return false; // Disallow recipes with minecraft:hopper
+            }
+        }
+        return true; // Allow all other recipes
     }
-
 }

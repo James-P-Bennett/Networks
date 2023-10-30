@@ -222,8 +222,8 @@ public class NetworkCraftingGrid extends AbstractGrid {
             crafted = Bukkit.craftItem(inputs, player.getWorld(), player);
         }
 
-        // If no item crafted OR result doesn't fit, escape
-        if (crafted.getType() == Material.AIR || !menu.fits(crafted, CRAFT_OUTPUT_SLOT)) {
+        // If no item crafted OR result is a hopper OR result doesn't fit, escape
+        if (crafted == null || crafted.getType() == Material.HOPPER || !menu.fits(crafted, CRAFT_OUTPUT_SLOT)) {
             return;
         }
 
